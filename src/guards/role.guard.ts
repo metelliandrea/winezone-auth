@@ -22,15 +22,9 @@ export class CheckUserRoles implements CanActivate {
 
     if (!requiredRoles) return true;
     const { user } = context.switchToHttp().getRequest();
-    // const { value } = user.roles.find(
-    //   ({ key }) => key === App[this.configService.get<string>('APP_CONTEXT')],
-    // );
-    const value = user.roles;
 
-    const hasRoles = () =>
-      value
-        .map((v) => requiredRoles.some((r) => _.isEqual(v, r)))
-        .some((truthy) => truthy);
+    const value = user.role;
+    const hasRoles = () => requiredRoles.includes(value);
 
     return user && hasRoles();
   }

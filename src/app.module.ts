@@ -46,16 +46,6 @@ import { JwtGuard } from './guards/jwt.guard';
       inject: [ConfigService],
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
-    // RedisModule.forRootAsync({
-    //   useFactory: (configService: ConfigService) => ({
-    //     host: configService.get<string>('REDIS_HOST'),
-    //     port: configService.get<number>('REDIS_PORT'),
-    //     password: configService.get<string>('REDIS_PASSWORD'),
-    //     db: configService.get<number>('REDIS_DATABASE_INDEX') || 0,
-    //     // keyPrefix: 'token:',
-    //   }),
-    //   inject: [ConfigService],
-    // }),
     AuthModule,
     UsersModule,
   ],

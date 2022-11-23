@@ -22,7 +22,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const user = await this.authService.validateUser(email, password);
 
     const token = jwt.sign(
-      _.pick(user, ['firstname', 'lastname', 'role', 'isPremiumUser']),
+      _.pick(user, ['guid', 'firstname', 'lastname', 'role', 'isPremiumUser']),
       this.configService.get<string>('JWT_SHARED_SECRET'),
       {
         expiresIn: this.configService.get<string>('JWT_EXP_TIME'),

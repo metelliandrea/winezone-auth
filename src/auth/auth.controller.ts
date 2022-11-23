@@ -14,11 +14,13 @@ import { plainToInstance } from 'class-transformer';
 import { Public } from 'src/decorators/public.decorator';
 import { RequiredRoles, Roles } from 'src/decorators/role.decorator';
 import { LocalAuthenticationGuard } from 'src/guards/local.guard';
+import { CheckUserRoles } from 'src/guards/role.guard';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/entities/user.entity';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
+@UseGuards(CheckUserRoles)
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(
@@ -34,8 +36,8 @@ export class AuthController {
     return req.user;
   }
 
-  @Post('register')
   @Public()
+  @Post('register')
   register(@Body() createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
