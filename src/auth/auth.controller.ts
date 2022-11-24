@@ -20,7 +20,7 @@ import { User } from 'src/users/entities/user.entity';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
-@UseGuards(CheckUserRoles)
+// @UseGuards(CheckUserRoles)
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(
@@ -48,6 +48,7 @@ export class AuthController {
   }
 
   @Get('logout')
+  @UseGuards(CheckUserRoles)
   @RequiredRoles(Roles.ADMIN, Roles.STANDARD, Roles.PREMIUM)
   logout(@Req() req) {
     return this.authService.logout(req);

@@ -13,6 +13,8 @@ export class JwtGuard extends AuthGuard('jwt') {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
+    // const ip = context.switchToHttp().getRequest().socket.remoteAddress;
+
     const unprotected: boolean = this.reflector.get<boolean>(
       UNPROTECTED,
       context.getHandler(),

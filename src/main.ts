@@ -21,28 +21,6 @@ async function bootstrap() {
     new HttpExceptionsFilter(app.get(HttpAdapterHost), config),
   );
 
-  // app.connectMicroservice<MicroserviceOptions>(
-  //   {
-  //     transport: Transport.RMQ,
-  //     options: {
-  //       urls: [
-  //         {
-  //           protocol: 'amqp',
-  //           hostname: config.get<string>('RABBITMQ_HOSTNAME') || 'localhost',
-  //           port: config.get<number>('RABBITMQ_PORT') || 5672,
-  //           username: config.get<string>('RABBITMQ_USERNAME') || 'root',
-  //           password: config.get<string>('RABBITMQ_PASSWORD') || 'root',
-  //           vhost: '/',
-  //         },
-  //       ],
-  //       prefetchCount: 1,
-  //       queue: config.get<string>('RABBITMQ_CART_QUEUE_NAME') || 'cart_queue',
-  //       queueOptions: { durable: true },
-  //     },
-  //   },
-  //   { inheritAppConfig: true },
-  // );
-
   app.disable('x-powered-by');
 
   app.useGlobalPipes(
@@ -52,7 +30,6 @@ async function bootstrap() {
     }),
   );
 
-  // await app.startAllMicroservices();
   await app.listen(port);
 }
 bootstrap();
