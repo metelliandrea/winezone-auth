@@ -17,7 +17,7 @@ import { JwtGuard } from './guards/jwt.guard';
     LoggerModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
         pinoHttp: {
-          name: 'winezone-products',
+          name: 'winezone-auth',
           level: config.get<string>('LOGGER_LEVEL'),
           redact: ['req.headers.authorization'],
           genReqId: (req, res) => {
