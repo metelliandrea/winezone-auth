@@ -3,11 +3,13 @@ data:
     NODE_ENV: "development"
     AUTH_PORT: "3001"
     SHOPPING_PORT: "3002"
+    PRODUCTS_PORT: "3000"
     LOGGER_LEVEL: "debug"
     ##LOGTAIL_TOKEN: "J8p4WmRK37xKvH6DYLzsfckc"
     DATABASE_HOST: "winezone-mysql-svc"
     AUTH_DATABASE_NAME: "auth"
     SHOPPING_DATABASE_NAME: "products"
+    PRODUCTS_DATABASE_NAME: "products"
     DATABASE_USER: "root"
     ##DATABASE_PASSWORD=root\
     REDIS_HOST: "winezone-redis-svc"
