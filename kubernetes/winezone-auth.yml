@@ -81,7 +81,7 @@ items:
     namespace: winezone
   spec:
     rules:
-    - host: winezone.dinamoretail.it
+    - host: auth.winezone.dinamoretail.com
       http:
         paths:
         - backend:
@@ -89,7 +89,7 @@ items:
               name: winezone-auth-svc
               port:
                 number: 3001
-          path: /auth/(.*)
+          path: /(.*)
           pathType: ImplementationSpecific
 kind: List
 metadata:
