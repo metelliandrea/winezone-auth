@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: winezone-mysql
+  labels:
+    app: winezone-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: winezone-mysql
+  template:
+    metadata:
+      labels:
+        app: winezone-mysql
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: winezone-mysql
+          image: mysql:5.7
+          imagePullPolicy: Always
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: winezone-secret
+                key: DATABASE_PASSWORD
+                optional: false
+          ports:
+            - name: http
+              containerPort: 3306
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: winezone-mysql-svc
+  labels:
+    app: winezone-mysql
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: winezone-mysql

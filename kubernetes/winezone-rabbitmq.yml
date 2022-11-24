@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: winezone-rabbitmq
+  labels:
+    app: winezone-rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: winezone-rabbitmq
+  template:
+    metadata:
+      labels:
+        app: winezone-rabbitmq
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: winezone-rabbitmq
+          image: bitnami/rabbitmq:3.11.3
+          imagePullPolicy: Always
+          env:
+          - name: RABBITMQ_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: winezone-configmap
+                key: RABBITMQ_USERNAME
+                optional: false  
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: winezone-secret
+                key: RABBITMQ_PASSWORD
+                optional: false
+          ports:
+            - name: http
+              containerPort: 5672
+              protocol: TCP
+            - name: gui
+              containerPort: 15672
+              protocol: TCP  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: winezone-rabbitmq-svc
+  labels:
+    app: winezone-rabbitmq
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5672
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 15672
+      targetPort: gui
+      protocol: TCP
+      name: gui
+  selector:
+    app: winezone-rabbitmq

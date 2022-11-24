@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: winezone-redis
+  labels:
+    app: winezone-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: winezone-redis
+  template:
+    metadata:
+      labels:
+        app: winezone-redis
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: winezone-redis
+          image: bitnami/redis:7.0.5
+          imagePullPolicy: Always
+          env:
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: winezone-secret
+                key: REDIS_PASSWORD
+                optional: false
+          ports:
+            - name: http
+              containerPort: 6379
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: winezone-redis-svc
+  labels:
+    app: winezone-redis
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: winezone-redis

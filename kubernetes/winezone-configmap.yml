@@ -1,0 +1,33 @@
+apiVersion: v1
+data:
+    NODE_ENV: "development"
+    AUTH_PORT: "3001"
+    SHOPPING_PORT: "3002"
+    LOGGER_LEVEL: "debug"
+    ##LOGTAIL_TOKEN: "J8p4WmRK37xKvH6DYLzsfckc"
+    DATABASE_HOST: "winezone-mysql-svc"
+    AUTH_DATABASE_NAME: "auth"
+    SHOPPING_DATABASE_NAME: "products"
+    DATABASE_USER: "root"
+    ##DATABASE_PASSWORD=root\
+    REDIS_HOST: "winezone-redis-svc"
+    ##REDIS_PASSWORD=root\
+    REDIS_PORT: "6379"
+    RABBITMQ_HOSTNAME: "winezone-rabbitmq-svc"
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_USERNAME: "root"
+    ##RABBITMQ_PASSWORD=root\
+    RABBITMQ_PRODUCTS_QUEUE_NAME: "products_queue"
+    ADD_PRODUCTS_TO_STOCK_SYMBOL: "ADD_TO_STOCK"
+    JWT_EXP_TIME: "4h"
+    JWT_SHARED_SECRET: "dinamoretail"
+    EMPTY_CART_SYMBOL: EMPTY_CART
+    RABBITMQ_CART_QUEUE_NAME: cart_queue
+    REMOVE_PRODUCTS_FROM_STOCK_SYMBOL: REMOVE_FROM_STOCK
+    AXIOS_BASE_TIMEOUT: "3000"
+    AUTH_SERVICE_INTERNAL_URL: winezone-auth-svc
+    AUTH_SERVICE_INTERNAL_PORT: "3001"
+kind: ConfigMap
+metadata:
+  name: winezone-configmap
+  namespace: winezone
